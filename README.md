@@ -26,7 +26,6 @@ Edit script variables
 sudo vi /usr/local/bin/unbound-blacklist.sh
 
 BLACKLIST_URL=https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts  # the hosts blacklist URL
-BLACKLIST_PATH=/etc/unbound/unbound-blacklist.orig                              # place to save the downloaded blacklist
 UNBOUND_CONF=/etc/unbound/unbound.conf.d/unbound-blacklist.conf                 # place to save unbound blacklist conf
 
 ```
