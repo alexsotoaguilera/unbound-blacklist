@@ -3,9 +3,7 @@ set -e
 
 case "$1" in
     remove)
-	systemctl stop unbound-blacklist-updater.service
         systemctl stop unbound-blacklist-updater.timer
-        systemctl disable unbound-blacklist-updater.service
         systemctl disable unbound-blacklist-updater.timer
         ;;
     *)

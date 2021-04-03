@@ -1,12 +1,8 @@
 [Unit]
 Description=Unbound blacklist updater
-After=network-online.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/unbound-blacklist.sh
 ExecStart=/bin/systemctl stop unbound.service
 ExecStart=/bin/systemctl start unbound.service
-
-[Install]
-WantedBy=multi-user.target

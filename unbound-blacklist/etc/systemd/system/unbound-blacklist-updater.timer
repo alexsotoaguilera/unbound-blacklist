@@ -1,8 +1,8 @@
 [Unit]
 Description=Daily unbound blacklist updater
-Requires=unbound-blacklist-updater.service
 
 [Timer]
+OnBootSec=15min
 OnUnitActiveSec=1d
 Persistent=true
 
