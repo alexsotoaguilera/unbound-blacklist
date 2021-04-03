@@ -20,7 +20,7 @@ fi
 # Generate unbound conf file
 echo "Generating unbound config file in $UNBOUND_CONF"
 echo "server:" > $UNBOUND_CONF
-cat $BLACKLIST_PATH | grep '^0\.0\.0\.0' | awk '{print "    local-zone: \""$2"\" redirect\n    local-data: \""$2" A 0.0.0.0\""}' >> $UNBOUND_CONF
+cat $BLACKLIST_PATH | grep '^0\.0\.0\.0' | awk '{print "    local-zone: \""$2"\" static"}' >> $UNBOUND_CONF
 rm $BLACKLIST_PATH
 
 # Validate unbound conf file
