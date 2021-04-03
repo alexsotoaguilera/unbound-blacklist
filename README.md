@@ -1,5 +1,5 @@
 # unbound-blacklist
-Service that generate and updates a blacklist for unbound DNS server
+Service that generate and update a blacklist for unbound DNS server
 
 ### How it works:
 
