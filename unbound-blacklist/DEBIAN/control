@@ -1,0 +1,7 @@
+Package: unbound-blacklist
+Version: 0.1
+Architecture: all
+Depends: unbound (>= 1.9.0)
+Maintainer: Alex Soto Aguilera <alex.soto.aguilera@gmail.com>
+Description: Service that generate and update a blacklist for unbound DNS server.
+ Documentation can be found at https://github.com/alexsotoaguilera/unbound-blacklist.

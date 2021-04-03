@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove)
+	systemctl stop unbound-blacklist-updater.service
+        systemctl stop unbound-blacklist-updater.timer
+        systemctl disable unbound-blacklist-updater.service
+        systemctl disable unbound-blacklist-updater.timer
+        ;;
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 0
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        chmod ug+x /usr/local/bin/unbound-blacklist.sh
+        systemctl enable unbound-blacklist-updater.service
+        systemctl enable unbound-blacklist-updater.timer
+	systemctl start unbound-blacklist-updater.service
+        systemctl start unbound-blacklist-updater.timer
+        ;;
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 0
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
