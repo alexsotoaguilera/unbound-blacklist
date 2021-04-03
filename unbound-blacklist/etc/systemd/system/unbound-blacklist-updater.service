@@ -9,4 +9,4 @@ ExecStart=/bin/systemctl stop unbound.service
 ExecStart=/bin/systemctl start unbound.service
 
 [Install]
-WantedBy=timers.target
+WantedBy=multi-user.target
