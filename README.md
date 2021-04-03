@@ -6,7 +6,7 @@ Service that generate and update a blacklist for unbound DNS server
 1. Download blacklist
 2. Generate **unbound** blacklist configuration
 3. Reload **unbound** service
-4. On boot time or after 24 hours, the configured timer updates the blacklist
+4. After 15 minutes from the system boot and every 24 hours, the systemd timer updates the blacklist
 
 ### Installation with **deb** package
 Clone the repository
@@ -42,9 +42,8 @@ sudo cp unbound-blacklist/unbound-blacklist/etc/systemd/system/unbound-blacklist
 sudo cp unbound-blacklist/unbound-blacklist/etc/systemd/system/unbound-blacklist-updater.timer /etc/systemd/system/
 ```
 
-Enable service and timer
+Enable timer
 ```
-sudo systemctl enable unbound-blacklist-updater.service
 sudo systemctl enable unbound-blacklist-updater.timer
 ```
 
@@ -64,10 +63,9 @@ BLACKLIST_URL=https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts  
 UNBOUND_CONF=/etc/unbound/unbound.conf.d/unbound-blacklist.conf                 # place to save unbound blacklist conf
 ```
 
-Restart service and timer
+Restart service
 ```
 sudo systemctl restart unbound-blacklist-updater.service
-sudo systemctl restart unbound-blacklist-updater.timer
 ```
 
 and that's it
