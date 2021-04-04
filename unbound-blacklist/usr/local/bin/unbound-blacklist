@@ -84,7 +84,7 @@ if __name__ == "__main__":
         print("Error: specified 'unbound_conf_path' is not a valid directory.")
         sys.exit(100)
     wl_path = config['whitelist_path']
-    if os.path.isfile(bl_conf_path) is False:
+    if os.path.isfile(wl_path) is False:
         print("Warning: specified whitelist file {} is not a valid file.".format(wl_path))
 
     for blacklist_conf in config['blacklist']:
