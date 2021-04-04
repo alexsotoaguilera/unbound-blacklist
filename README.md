@@ -1,5 +1,5 @@
 # unbound-blacklist
-Service that generate and update a blacklist for unbound DNS server
+Service that generates and updates a group of blacklists for unbound DNS server
 - supports multiple blacklists
 - supports domain whitelist
 - TODO: merge blacklists to prevent redundancy
