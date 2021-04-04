@@ -1,12 +1,15 @@
 # unbound-blacklist
-Service that generate and update a blacklist for unbound DNS server
+Service that generates and updates a group of blacklists for unbound DNS server
+- supports multiple blacklists
+- supports domain whitelist
+- TODO: merge blacklists to prevent redundancy
 
 ### How it works:
 
-1. Download blacklist
-2. Generate **unbound** blacklist configuration
-3. Reload **unbound** service
-4. After 15 minutes from the system boot and every 24 hours, the systemd timer updates the blacklist
+1. Download configured blacklists.
+2. Generate **unbound** blacklist configuration without whitelisted domains.
+3. Reload **unbound** service.
+4. After 15 minutes from the system boot and every 24 hours, the systemd timer updates the blacklist.
 
 ### Installation with **deb** package
 Clone the repository
@@ -32,8 +35,13 @@ git clone https://github.com:alexsotoaguilera/unbound-blacklist.git
 
 Copy script to /usr/local/bin/
 ```
-sudo cp unbound-blacklist/unbound-blacklist/usr/local/bin/unbound-blacklist.sh /usr/local/bin/
-sudo chmod ug+x /usr/local/bin/unbound-blacklist.sh
+sudo cp unbound-blacklist/unbound-blacklist/usr/local/bin/unbound-blacklist /usr/local/bin/
+sudo chmod ug+x /usr/local/bin/unbound-blacklist
+```
+
+Copy config files to /etc/
+```
+sudo cp unbound-blacklist/etc/unbound-blacklist /etc/
 ```
 
 Copy service and timer to /etc/systemd/system/
@@ -54,18 +62,41 @@ sudo systemctl start unbound-blacklist-updater.timer
 ```
 
 ### Configuration
-
-Edit script variables
+Edit configuration at /etc/unbound-blacklist/conf.json
 ```
-sudo vi /usr/local/bin/unbound-blacklist.sh
+{
+  "blocking_mode": "always_nxdomain",
+  "unbound_conf_path": "/etc/unbound/unbound.conf.d/",
+  "whitelist_path": "/etc/unbound-blacklist/whitelist",
 
-BLACKLIST_URL=https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts  # the hosts blacklist URL
-UNBOUND_CONF=/etc/unbound/unbound.conf.d/unbound-blacklist.conf                 # place to save unbound blacklist conf
+  "blacklist":{
+    "stevenblack": {
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+      "input_format": "0.0.0.0 DOMAIN",
+      "config": "/etc/unbound/unbound.conf.d/unbound-blacklist_stevenblack.conf"
+    },
+    "oisd": {
+      "enabled": false,
+      "url": "https://dbl.oisd.nl/",
+      "input_format": "DOMAIN",
+      "config": "/etc/unbound/unbound.conf.d/unbound-blacklist_oisd.conf"
+    }
+  }
+}
 ```
 
-Restart service
+### Whitelist
+Add on domain per line on /etc/unbound-blacklist/whitelist
 ```
-sudo systemctl restart unbound-blacklist-updater.service
+example1.com
+example2.com
+```
+
+
+Rebuild blacklist files:
+```
+sudo unbound-blacklist
 ```
 
 and that's it

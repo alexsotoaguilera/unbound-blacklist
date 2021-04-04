@@ -3,7 +3,7 @@ set -e
 
 case "$1" in
     configure)
-        chmod ug+x /usr/local/bin/unbound-blacklist.sh
+        chmod ug+x /usr/local/bin/unbound-blacklist
         systemctl enable unbound-blacklist-updater.timer
         systemctl start unbound-blacklist-updater.timer
         systemctl start unbound-blacklist-updater.service

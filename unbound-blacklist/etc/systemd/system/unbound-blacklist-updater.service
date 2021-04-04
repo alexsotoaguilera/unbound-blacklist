@@ -3,6 +3,6 @@ Description=Unbound blacklist updater
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/unbound-blacklist.sh
+ExecStart=/usr/local/bin/unbound-blacklist
 ExecStart=/bin/systemctl stop unbound.service
 ExecStart=/bin/systemctl start unbound.service

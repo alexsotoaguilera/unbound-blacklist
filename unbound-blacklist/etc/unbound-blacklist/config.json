@@ -1,0 +1,20 @@
+{
+  "blocking_mode": "always_nxdomain",
+  "unbound_conf_path": "/etc/unbound/unbound.conf.d/",
+  "whitelist_path": "/etc/unbound-blacklist/whitelist",
+
+  "blacklist":{
+    "stevenblack": {
+      "enabled": true,
+      "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+      "input_format": "0.0.0.0 DOMAIN",
+      "config": "/etc/unbound/unbound.conf.d/unbound-blacklist_stevenblack.conf"
+    },
+    "oisd": {
+      "enabled": false,
+      "url": "https://dbl.oisd.nl/",
+      "input_format": "DOMAIN",
+      "config": "/etc/unbound/unbound.conf.d/unbound-blacklist_oisd.conf"
+    }
+  }
+}
