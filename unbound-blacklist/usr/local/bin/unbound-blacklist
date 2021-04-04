@@ -8,7 +8,7 @@ import tempfile
 import urllib.request
 
 
-CONF_PATH = '/etc/unbound-blacklist/unbound-blacklist.json'
+CONF_PATH = '/etc/unbound-blacklist/config.json'
 
 
 def download_bl_raw(url):

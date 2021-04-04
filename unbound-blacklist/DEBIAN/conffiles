@@ -1,2 +1,2 @@
-/etc/unbound-blacklist/unbound-blacklist.json
+/etc/unbound-blacklist/config.json
 /etc/unbound-blacklist/whitelist
