@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     for blacklist_conf in config['blacklist']:
         if config['blacklist'][blacklist_conf]['enabled']:
-            print("Info: Creating unbound blacklist configuration file for {}.".format(blacklist_conf))
+            print("Info: generating {} blacklist configuration file for unbound.".format(blacklist_conf))
             bl_url = config['blacklist'][blacklist_conf]['url']
             bl_conf = config['blacklist'][blacklist_conf]['config']
             bl_format = config['blacklist'][blacklist_conf]['input_format']
