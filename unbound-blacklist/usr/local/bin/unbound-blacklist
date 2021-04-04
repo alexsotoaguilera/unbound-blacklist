@@ -85,7 +85,7 @@ if __name__ == "__main__":
         sys.exit(100)
     wl_path = config['whitelist_path']
     if os.path.isfile(bl_conf_path) is False:
-        print("Warning: specified 'whitelist_path' is not a valid file.")
+        print("Warning: specified whitelist file {} is not a valid file.".format(wl_path))
 
     for blacklist_conf in config['blacklist']:
         if config['blacklist'][blacklist_conf]['enabled']:
