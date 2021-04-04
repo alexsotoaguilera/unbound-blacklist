@@ -87,10 +87,9 @@ if __name__ == "__main__":
     if os.path.isfile(bl_conf_path) is False:
         print("Warning: specified 'whitelist_path' is not a valid file.")
 
-    # Check blacklist sections in config file
     for blacklist_conf in config['blacklist']:
         if config['blacklist'][blacklist_conf]['enabled']:
-            print("Info: configuration enabled for {}.".format(blacklist_conf))
+            print("Info: Creating unbound blacklist configuration file for {}.".format(blacklist_conf))
             bl_url = config['blacklist'][blacklist_conf]['url']
             bl_conf = config['blacklist'][blacklist_conf]['config']
             bl_format = config['blacklist'][blacklist_conf]['input_format']
@@ -98,10 +97,11 @@ if __name__ == "__main__":
             bl_raw_path = download_bl_raw(bl_url)
             if bl_raw_path is None:
                 sys.exit(100)
-            bl_conf_path = gen_unbound_bl_file(bl_raw_path, blocking_mode, bl_format, wl_path)
-            if validate_unbound_config(bl_conf_path) != 0:
+            bl_conf_tmp = gen_unbound_bl_file(bl_raw_path, blocking_mode, bl_format, wl_path)
+            if validate_unbound_config(bl_conf_tmp) != 0:
                 print("Error: invalid unbound config file, check blacklist origin")
-                os.remove(bl_conf_path)
+                os.remove(bl_conf_tmp)
                 sys.exit(100)
             else:
-                shutil.move(bl_conf_path, os.path.join(bl_conf_path, bl_conf))
+                print("Info: configuration file is valid and will be installed on {}".format(bl_conf))
+                shutil.move(bl_conf_path, bl_conf)
