@@ -104,4 +104,4 @@ if __name__ == "__main__":
                 sys.exit(100)
             else:
                 print("Info: configuration file is valid and will be installed on {}".format(bl_conf))
-                shutil.move(bl_conf_path, bl_conf)
+                shutil.move(bl_conf_tmp, bl_conf)
