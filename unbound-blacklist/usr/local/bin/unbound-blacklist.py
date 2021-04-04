@@ -2,9 +2,9 @@
 
 import sys
 import os
+import json
 import shutil
 import tempfile
-import configparser
 import urllib.request
 
 
@@ -71,27 +71,29 @@ if __name__ == "__main__":
     if os.path.isfile(CONF_PATH) is False:
         print("Error: config file {} doesn't exists.".format(CONF_PATH))
         sys.exit(100)
-    config = configparser.ConfigParser()
-    config.read(CONF_PATH)
-    blocking_mode = config['DEFAULT'].get('blocking_mode', 'always_nxdomain')
+
+    with open(CONF_PATH) as json_file:
+        config = json.load(json_file)
+
+    blocking_mode = config['blocking_mode']
     if blocking_mode not in ('always_nxdomain', 'always_nodata'):
         print("Error: blocking_mode must be 'always_nxdomain' or 'always_nodata'")
         sys.exit(100)
-    bl_conf_path = config['DEFAULT'].get('unbound_conf_path', '/etc/unbound/unbound.conf.d/')
+    bl_conf_path = config['unbound_conf_path']
     if os.path.isdir(bl_conf_path) is False:
         print("Error: specified 'unbound_conf_path' is not a valid directory.")
         sys.exit(100)
-    wl_path = config['DEFAULT'].get('whitelist_path', '/etc/unbound-blacklist/whitelist')
+    wl_path = config['whitelist_path']
     if os.path.isfile(bl_conf_path) is False:
         print("Warning: specified 'whitelist_path' is not a valid file.")
 
     # Check blacklist sections in config file
-    for blacklist_conf in config.sections():
-        if config[blacklist_conf].getboolean('enabled'):
+    for blacklist_conf in config['blacklist']:
+        if config['blacklist'][blacklist_conf]['enabled']:
             print("Info: configuration enabled for {}.".format(blacklist_conf))
-            bl_url = config[blacklist_conf]['url']
-            bl_conf = config[blacklist_conf]['config']
-            bl_format = config[blacklist_conf]['input_format']
+            bl_url = config['blacklist'][blacklist_conf]['url']
+            bl_conf = config['blacklist'][blacklist_conf]['config']
+            bl_format = config['blacklist'][blacklist_conf]['input_format']
             print("Info: downloading blacklist {}.".format(bl_url))
             bl_raw_path = download_bl_raw(bl_url)
             if bl_raw_path is None:
