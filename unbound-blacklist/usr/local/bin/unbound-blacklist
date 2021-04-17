@@ -76,7 +76,7 @@ if __name__ == "__main__":
         config = json.load(json_file)
 
     blocking_mode = config['blocking_mode']
-    if blocking_mode not in ('always_nxdomain', 'always_nodata'):
+    if blocking_mode not in ('always_nxdomain', 'always_nodata', 'always_null'):
         print("Error: blocking_mode must be 'always_nxdomain' or 'always_nodata'")
         sys.exit(100)
     bl_conf_path = config['unbound_conf_path']
