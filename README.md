@@ -63,6 +63,10 @@ sudo systemctl start unbound-blacklist-updater.timer
 
 ### Configuration
 Edit configuration at /etc/unbound-blacklist/conf.json
+
+blocking_mode: always_nxdomain, always_null (unbound >= 1.13.1), always_nodata
+
+
 ```
 {
   "blocking_mode": "always_nxdomain",
